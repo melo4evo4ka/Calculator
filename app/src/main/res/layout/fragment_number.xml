@@ -293,7 +293,7 @@
         android:layout_marginEnd="4dp"
         android:layout_marginRight="4dp"
         android:background="@drawable/btn_selector_action"
-        android:onClick="onClick"
+        android:onClick="operationButtonClick"
         android:text="%"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btn_0"

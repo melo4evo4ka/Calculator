@@ -22,8 +22,10 @@ public class MainActivity extends AppCompatActivity {
         MULTIPLY,
         DIVIDE,
         X2,
+        PRCENT,
         STARTOVER,
         NONE
+
     }
 
     @Override
@@ -46,8 +48,6 @@ public class MainActivity extends AppCompatActivity {
             textView2.setTypeface(type);
         }
         if (mSelectedPosition == -1) return;
-
-
 
     }
 
@@ -78,6 +78,10 @@ public class MainActivity extends AppCompatActivity {
                 operation = Operation.X2;
                firstNum = Math.pow(firstNum,2);
                equalButtonClick(view);
+                break;
+            case R.id.btn_procent:
+                operation = Operation.PRCENT;
+                addSymbol('%');
                 break;
         }
     }
@@ -122,6 +126,9 @@ public class MainActivity extends AppCompatActivity {
                     textView1.setText("");
                     textView2.setText("");
                     break;
+                case R.id.btn_backspace:
+                    textView1.setText("");
+                    break;
                 case R.id.btn_dot:
                     btnDot.setEnabled(false);
                     addSymbol('.');
@@ -163,6 +170,7 @@ public class MainActivity extends AppCompatActivity {
             secondNum = Double.parseDouble(textView1.getText().toString());
         } else secondNum = firstNum;
         addSymbol('=');
+
         switch (operation) {
             case ADD:
                 firstNum += secondNum;
@@ -176,6 +184,10 @@ public class MainActivity extends AppCompatActivity {
             case DIVIDE:
                 firstNum /= secondNum;
                 break;
+            case PRCENT:
+                firstNum = (firstNum/100)*secondNum;
+                firstNum = roundAvoid(firstNum, 3);
+                break;
             default:
                 firstNum = secondNum;
         }
@@ -185,6 +197,9 @@ public class MainActivity extends AppCompatActivity {
         operation = Operation.STARTOVER;
     }
 
-
+    public static double roundAvoid(double value, int places) {
+        double scale = Math.pow(10, places);
+        return Math.round(value * scale) / scale;
+    }
 }
 
